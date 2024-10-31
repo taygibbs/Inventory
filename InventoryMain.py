@@ -7,7 +7,9 @@ Created on Fri Oct  4 19:43:41 2024
 import os
 import pandas as pd
 import InventoryFunc as IF
-
+import InventoryGUI as IG
+import tkinter as tk
+from tkinter import filedialog
 
 """
 For this code, my goals are to:
@@ -53,6 +55,16 @@ def pass_fail(bool) -> str:
     else:
         return 'FAIL'
     
+def file_dialog():
+    print('in file_dialog')
+    filepath = filedialog.askopenfilename(initialdir= os.getcwd(), title = 'Select A File',
+                                          filetype= (('xlsx files','*.xlsx'),
+                                                 ('pickle files','*.pkl'),
+                                                 ('all files','*.*')),
+                                          multiple = False)
+    
+    IF.set_filepath(filepath)
+    
 def testing():
     print('Starting Testing Methods:')
     eq_print()
@@ -71,15 +83,23 @@ def testing():
     print('\tStarting Reading pkl Test:\n\t\tInputting A Non-Existent FileName: NonExisting.pkl')
     IF.read_list
     
-    
+def run_GUI():
+    IG.main()
     
 def main():
+    
     review_old = input('Would you like to see the previous list? (y/n): ')
     
-    filename = 'InventoryList'
-    IF.save_filepath(filename)
+    
+    
+    
+    
     if review_old == 'y':
-        print('Loading Previously list: ' + filename)
+
+        
+        file_dialog()
+        
+        print('Loading Previously list: ' + IF.get_filename())
         inv_df = IF.read_list()
         if inv_df.empty:
             new_inv =input('Inventory list is empty. Try making a new list? (y/n)')

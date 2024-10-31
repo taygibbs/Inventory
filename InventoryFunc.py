@@ -24,7 +24,7 @@ def save_filepath(filename: str):
     """
     
     global filepath 
-    filepath = os.getcwd() + '/' + filename
+    filepath = filename
    
     
 #returns the gbl variable filepath
@@ -36,7 +36,12 @@ def get_filepath():
     
     return filepath
 
-
+def get_filename() -> str:
+    for i in range(len(get_filepath()), 0, -1):
+        if i == '/':
+            return filepath[i+1:]
+        else:
+            continue
 #Reads in the previous list (in pkl format)
 
 def read_list(*args) -> pd.DataFrame:
@@ -67,7 +72,7 @@ def read_list(*args) -> pd.DataFrame:
             return df
     #Should this be where the df gets turned into the inventory items or should it be okay to leave it in DF form?
 
-    
+
     
 class Inventory:
     
